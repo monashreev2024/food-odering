@@ -1,0 +1,29 @@
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: food-green
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: food-portal
+      version: green
+  template:
+    metadata:
+      labels:
+        app: food-portal
+        version: green
+    spec:
+      containers:
+        - name: food-portal
+          image: monashree1511/food-ordering-portal:v2
+          ports:
+            - containerPort: 80
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 3
+            periodSeconds: 5
+```
